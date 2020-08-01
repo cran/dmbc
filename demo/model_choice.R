@@ -15,7 +15,7 @@ set.seed(seed)
 
 control <- list(burnin = burnin, nsim = nsim, z.prop = prm.prop[["z"]],
   alpha.prop = prm.prop[["alpha"]], random.start = TRUE, verbose = TRUE,
-  thin = 10, store.burnin = TRUE)
+  thin = 10, store.burnin = TRUE, procrustes = TRUE, relabel = FALSE)
 sim.ic <- dmbc_IC(data = simdiss, pmax = pmax, Gmax = Gmax, control = control,
   est = "mean")
 
@@ -28,6 +28,7 @@ new.ic <- update(sim.ic, pmax = pmax, Gmax = Gmax)
 summary(new.ic)
 
 # plot the results
+library(bayesplot)
 color_scheme_set("mix-yellow-blue")
 p <- plot(new.ic, size = c(4, 1.5))
 p + panel_bg(fill = "gray90", color = NA)
